@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EstoqueInsumosApp.View.ListaInsumosPopupView"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:viewModel="clr-namespace:EstoqueInsumosApp.ViewModel">
+
+    <ContentPage.BindingContext>
+        <viewModel:ListaInsumosPopupViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout 
+        BackgroundColor="White"
+        WidthRequest="300"  
+        HeightRequest="350"
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" 
+        Padding="20"
+        >
+        <Label
+            x:Name="teste"
+            Text="Selecione o insumo"
+            FontSize="Large"
+            HorizontalOptions="CenterAndExpand"
+        />
+        <SearchBar
+            x:Name="SCB_BuscaInsumos"
+            Placeholder="Pesquise aqui..."
+            SearchCommandParameter="{Binding}"
+        />
+        <CollectionView
+
+            SelectionMode="Single"
+            >
+            <CollectionView.Header>
+                <ContentView
+                    Padding="5"
+                    >
+                </ContentView>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <ContentView
+                        Padding="3"
+                        >
+                        <Frame
+                            Padding="5"
+                            BackgroundColor="GhostWhite"
+                            >
+                            <Grid
+                                RowDefinitions="60"
+                                >
+                                <Label
+                                    VerticalTextAlignment="Center"
+                                    HorizontalTextAlignment="Center"
+                                />
+                            </Grid>
+                        </Frame>
+                    </ContentView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</pages:PopupPage>
