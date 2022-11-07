@@ -26,10 +26,13 @@
         <SearchBar
             x:Name="SCB_BuscaFornecedores"
             Placeholder="Pesquise aqui..."
+            SearchCommand="{Binding SearchCommand}"
+            Text="{Binding EnteredText}"
             SearchCommandParameter="{Binding}"
         />
         <CollectionView
-
+            ItemsSource="{Binding Fornecedores}"
+            SelectedItem="{Binding SelectedFornecedor}"
             SelectionMode="Single"
             >
             <CollectionView.Header>
@@ -49,8 +52,16 @@
                             >
                             <Grid
                                 RowDefinitions="60"
+                                ColumnDefinitions="40, *"
                                 >
                                 <Label
+                                    Text="{Binding Codigo}"
+                                    VerticalTextAlignment="Center"
+                                    HorizontalTextAlignment="Center"
+                                />
+                                <Label
+                                    Text="{Binding Nome}"
+                                    Grid.Column="1"
                                     VerticalTextAlignment="Center"
                                     HorizontalTextAlignment="Center"
                                 />

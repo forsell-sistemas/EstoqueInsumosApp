@@ -1,4 +1,6 @@
 ﻿using EstoqueInsumosApp.Model;
+using Npgsql;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -49,6 +51,22 @@ namespace EstoqueInsumosApp.ViewModel
                 OnPropertyChanged();
             }
         }
+        private Fornecedor _SelectedFornecedor;
+        public Fornecedor SelectedFornecedor
+        {
+            get => _SelectedFornecedor;
+            set
+            {
+                _SelectedFornecedor = value;
+                OnPropertyChanged();
+                if (_SelectedFornecedor != null)
+                {
+                    MessagingCenter.Send(this, "FornecedorSelecionado", _SelectedFornecedor);
+                    PopupNavigation.Instance.PopAllAsync();
+                    _SelectedFornecedor = null;
+                }
+            }
+        }
 
 
         public bool CanExecuteSeachCommand(object parameter)
@@ -60,6 +78,33 @@ namespace EstoqueInsumosApp.ViewModel
         {
             Fornecedores = new List<Fornecedor>();
             listatemp = new List<Fornecedor>();
+
+            CarregaFornecedores();
+        }
+
+        private void CarregaFornecedores()
+        {
+            using (NpgsqlConnection conn = Connection.Conn())
+            {
+                conn.Open();
+                string strsql = string.Empty;
+                strsql += " SELECT";
+                strsql += " codigo";
+                strsql += " ,nome";
+                strsql += " FROM fornecedores";
+                strsql += " ORDER BY nome";
+                NpgsqlCommand command = new NpgsqlCommand(strsql, conn);
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    listatemp.Add(new Fornecedor()
+                    {
+                        Codigo = dr.GetInt32(dr.GetOrdinal("codigo")),
+                        Nome = dr.GetString(dr.GetOrdinal("nome"))
+                    });
+                }
+            }
+            Fornecedores = listatemp;
         }
     }
 }
