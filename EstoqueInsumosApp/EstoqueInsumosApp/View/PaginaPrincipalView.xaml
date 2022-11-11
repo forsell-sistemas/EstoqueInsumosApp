@@ -4,6 +4,19 @@
              x:Class="EstoqueInsumosApp.View.PaginaPrincipalView"
              xmlns:viewModel="clr-namespace:EstoqueInsumosApp.ViewModel">
 
+    <Shell.TitleView>
+        <Grid
+            ColumnDefinitions="270, 30"
+            >
+            <Label
+                Text="Início"
+                FontSize="20" 
+                TextColor="White"
+                VerticalTextAlignment="Center"
+            />
+        </Grid>
+    </Shell.TitleView>
+    
     <ContentPage.BindingContext>
         <viewModel:PaginaPrincipalViewModel/>
     </ContentPage.BindingContext>
@@ -12,14 +25,6 @@
         <StackLayout
             Padding="10"
             >
-
-            <Label
-                Text="Estoque Insumos App"
-                HorizontalTextAlignment="Center"
-                FontSize="26"
-                Margin="25"
-            />
-
             <StackLayout
                 VerticalOptions="CenterAndExpand"
                 >
@@ -156,6 +161,7 @@
                         Keyboard="Numeric"
                         HorizontalOptions="FillAndExpand"
                         HorizontalTextAlignment="End"
+                        Text="{Binding Quantidade}"
                     />
                 </StackLayout>
             </StackLayout>
@@ -168,6 +174,7 @@
                 HeightRequest="75"
                 Background="LightGreen"
                 Text="CONFIRMA"
+                Command="{Binding ConfirmarCommand}"
                 FontSize="16"
                 TextColor="Black"
                 HorizontalOptions="FillAndExpand"

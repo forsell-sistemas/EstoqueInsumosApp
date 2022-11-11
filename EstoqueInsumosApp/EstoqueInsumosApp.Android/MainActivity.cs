@@ -4,6 +4,8 @@ using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using Xamarin.Forms;
+using EstoqueInsumosApp.View.Shell;
 
 namespace EstoqueInsumosApp.Droid
 {
@@ -16,14 +18,25 @@ namespace EstoqueInsumosApp.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            Window.SetStatusBarColor(Android.Graphics.Color.Argb(23, 166, 118, 255));
             Rg.Plugins.Popup.Popup.Init(this);
             LoadApplication(new App());
+
+            MessagingCenter.Subscribe<MenuLateralView>(this, "SairApp", (sender) =>
+            {
+                SairApp();
+            });
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        public void SairApp()
+        {
+            Process.KillProcess(Process.MyPid());
         }
     }
 }

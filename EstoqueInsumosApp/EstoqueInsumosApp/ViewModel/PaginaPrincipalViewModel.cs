@@ -80,11 +80,22 @@ namespace EstoqueInsumosApp.ViewModel
                 OnPropertyChanged();
             }
         }
+        private string _Quantidade;
+        public string Quantidade
+        {
+            get => _Quantidade;
+            set
+            {
+                _Quantidade = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Command FornecedoresPopupCommand { get; set; }
         public Command InsumosPopupCommand { get; set; }
         public Command EntradaCommand { get; set; }
         public Command SaidaCommand { get; set; }
+        public Command ConfirmarCommand { get; set; }
 
         public PaginaPrincipalViewModel()
         {
@@ -92,6 +103,7 @@ namespace EstoqueInsumosApp.ViewModel
             InsumosPopupCommand = new Command(InsumosPopup);
             EntradaCommand = new Command(EntradaToggle);
             SaidaCommand = new Command(SaidaToggle);
+            ConfirmarCommand = new Command(Confirmar);
 
             EntradaSelecionada = true;
             HabilitadoBotaoEntrada = true;
@@ -125,16 +137,23 @@ namespace EstoqueInsumosApp.ViewModel
             HabilitadoBotaoEntrada = false;
             CorBotaoEntrada = new Color(0.8, 0.8, 0.8);
             HabilitadoBotaoSaida = true;
-            CorBotaoSaida = new Color(1, 1, 1);
+            CorBotaoSaida = new Color(0.313, 1, 0.450);
         }
 
         private void SaidaToggle()
         {
             EntradaSelecionada = true;
             HabilitadoBotaoEntrada = true;
-            CorBotaoEntrada = new Color(1, 1, 1);
+            CorBotaoEntrada = new Color(0.313, 1, 0.450);
             HabilitadoBotaoSaida = false;
             CorBotaoSaida = new Color(0.8, 0.8, 0.8);
+        }
+
+        private void Confirmar()
+        {
+            FornecedorSelecionado = null;
+            InsumoSelecionado = null;
+            Quantidade = "";
         }
     }
 }

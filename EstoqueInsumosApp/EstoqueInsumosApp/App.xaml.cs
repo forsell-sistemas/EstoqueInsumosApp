@@ -1,4 +1,5 @@
 ﻿using EstoqueInsumosApp.View;
+using EstoqueInsumosApp.View.Shell;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,7 +12,7 @@ namespace EstoqueInsumosApp
         {
             InitializeComponent();
 
-            MainPage = new PaginaPrincipalView();
+            MainPage = new MenuLateralView();
         }
 
         protected override void OnStart()

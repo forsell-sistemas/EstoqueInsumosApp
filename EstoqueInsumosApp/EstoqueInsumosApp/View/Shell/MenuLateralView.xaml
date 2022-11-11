@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="EstoqueInsumosApp.View.Shell.MenuLateralView"
+    xmlns:views="clr-namespace:EstoqueInsumosApp.View"
+    BackgroundColor="#17A676"
+    >
+    
+    <Shell.FlyoutHeader>
+        <ContentView
+            HeightRequest="100"
+            BackgroundColor="#17A676"
+            >
+            <StackLayout 
+                Orientation="Horizontal"
+                Margin="0,0,0,0"
+                >
+                <Label
+                    Text="ESTOQUE INSUMOS APP"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    FontSize="Large"
+                    HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="End"
+                    VerticalTextAlignment="Center"
+                />
+            </StackLayout>
+        </ContentView>
+    </Shell.FlyoutHeader>
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid
+                ColumnDefinitions="1*,4*"
+                RowDefinitions="Auto"
+                >
+                <StackLayout
+                    Orientation="Horizontal"
+                    Grid.ColumnSpan="5"
+                    Padding="20"
+                    >
+                    <Image
+                        Source="{Binding Icon}"
+                        Margin="5"
+                        HeightRequest="20"
+                    />
+                    <Label
+                        Grid.Column="1"
+                        FontSize="18" 
+                        Text="{Binding Title}"
+                        VerticalTextAlignment="Center"
+                    />
+                </StackLayout>
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <Grid
+                ColumnDefinitions="1*,4*"
+                RowDefinitions="80"
+                >
+                <StackLayout
+                    Orientation="Horizontal"
+                    Grid.ColumnSpan="5"
+                    Padding="20"
+                    >
+                    <Image
+                        Source="{Binding Icon}"
+                        Margin="5"
+                        HeightRequest="20"
+                    />
+                    <Label
+                        Grid.Column="1"
+                        FontSize="18" 
+                        Text="{Binding Text}"
+                        VerticalTextAlignment="Center"
+                    />
+                </StackLayout>
+            </Grid>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
+
+    <ShellContent
+        Title="Início" 
+        ContentTemplate="{DataTemplate views:PaginaPrincipalView}"
+        >
+    </ShellContent>
+
+    <MenuItem
+        Text="Sair"
+        Command="{Binding SairCommand}"
+        >
+    </MenuItem>
+
+</Shell>
