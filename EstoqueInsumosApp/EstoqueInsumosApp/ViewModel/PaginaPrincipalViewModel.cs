@@ -90,6 +90,16 @@ namespace EstoqueInsumosApp.ViewModel
                 OnPropertyChanged();
             }
         }
+        private string _OBS;
+        public string OBS
+        {
+            get => _OBS;
+            set
+            {
+                _OBS = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Command FornecedoresPopupCommand { get; set; }
         public Command InsumosPopupCommand { get; set; }
