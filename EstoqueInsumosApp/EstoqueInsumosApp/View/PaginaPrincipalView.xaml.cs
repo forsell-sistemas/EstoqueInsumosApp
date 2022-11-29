@@ -21,11 +21,11 @@ namespace EstoqueInsumosApp.View
             {
                 BTN_Confirma.IsEnabled = true;
             });
-        }
 
-        private void BTN_Confirma_Clicked(object sender, EventArgs e)
-        {
-            BTN_Confirma.IsEnabled = false;
+            MessagingCenter.Subscribe<PaginaPrincipalViewModel>(this, "DesabilitarConfirma", (sender) =>
+            {
+                BTN_Confirma.IsEnabled = false;
+            });
         }
     }
 }

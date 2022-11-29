@@ -92,6 +92,7 @@ namespace EstoqueInsumosApp.ViewModel
                 strsql += " codigo";
                 strsql += " ,nome";
                 strsql += " FROM fornecedores";
+                strsql += " WHERE inativo IS NOT TRUE";
                 strsql += " ORDER BY nome";
                 NpgsqlCommand command = new NpgsqlCommand(strsql, conn);
                 NpgsqlDataReader dr = command.ExecuteReader();
