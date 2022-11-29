@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace EstoqueInsumosApp.ViewModel
 {
-    class ListaInsumosPopupViewModel : BaseViewModel
+    class ListaPontoPopupViewModel : BaseViewModel
     {
         public Command SearchCommand
         {
@@ -22,7 +22,7 @@ namespace EstoqueInsumosApp.ViewModel
         }
         private void ExecuteSearchCommand(object parameter)
         {
-            Insumos = _Insumos;
+            Pontos = _Pontos;
         }
         private string enteredText;
 
@@ -34,36 +34,36 @@ namespace EstoqueInsumosApp.ViewModel
 
                 enteredText = value;
                 OnPropertyChanged();
-                Insumos = new List<Insumo>(listatemp
+                Pontos = new List<Ponto>(listatemp
                 .Where(x => x.Nome.ToLower()
                 .Contains(enteredText.ToLower())).ToList());
             }
         }
 
-        private List<Insumo> listatemp;
-        private List<Insumo> _Insumos;
-        public List<Insumo> Insumos
+        private List<Ponto> listatemp;
+        private List<Ponto> _Pontos;
+        public List<Ponto> Pontos
         {
-            get => _Insumos;
+            get => _Pontos;
             set
             {
-                _Insumos = value;
+                _Pontos = value;
                 OnPropertyChanged();
             }
         }
-        private Insumo _SelectedInsumo;
-        public Insumo SelectedInsumo
+        private Ponto _SelectedPonto;
+        public Ponto SelectedPonto
         {
-            get => _SelectedInsumo;
+            get => _SelectedPonto;
             set
             {
-                _SelectedInsumo = value;
+                _SelectedPonto = value;
                 OnPropertyChanged();
-                if (_SelectedInsumo != null)
+                if (_SelectedPonto != null)
                 {
-                    MessagingCenter.Send(this, "InsumoSelecionado", _SelectedInsumo);
+                    MessagingCenter.Send(this, "PontoSelecionado", _SelectedPonto);
                     PopupNavigation.Instance.PopAllAsync();
-                    _SelectedInsumo = null;
+                    _SelectedPonto = null;
                 }
             }
         }
@@ -74,15 +74,15 @@ namespace EstoqueInsumosApp.ViewModel
             return true;
         }
 
-        public ListaInsumosPopupViewModel()
+        public ListaPontoPopupViewModel()
         {
-            Insumos = new List<Insumo>();
-            listatemp = new List<Insumo>();
+            Pontos = new List<Ponto>();
+            listatemp = new List<Ponto>();
 
-            CarregaInsumos();
+            CarregaPontos();
         }
 
-        private void CarregaInsumos()
+        private void CarregaPontos()
         {
             using (NpgsqlConnection conn = Connection.Conn())
             {
@@ -90,22 +90,21 @@ namespace EstoqueInsumosApp.ViewModel
                 string strsql = string.Empty;
                 strsql += " SELECT";
                 strsql += " codigo";
-                strsql += " ,nomeins";
-                strsql += " FROM stk_insumos_estoque";
-                strsql += " WHERE estoque_insumos_app = TRUE";
-                strsql += " ORDER BY nomeins";
+                strsql += " ,descricao";
+                strsql += " FROM ste_pontos";
+                strsql += " ORDER BY descricao";
                 NpgsqlCommand command = new NpgsqlCommand(strsql, conn);
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                 {
-                    listatemp.Add(new Insumo()
+                    listatemp.Add(new Ponto()
                     {
                         Codigo = dr.GetInt32(dr.GetOrdinal("codigo")),
-                        Nome = dr.GetString(dr.GetOrdinal("nomeins"))
+                        Nome = dr.GetString(dr.GetOrdinal("descricao"))
                     });
                 }
             }
-            Insumos = listatemp;
+            Pontos = listatemp;
         }
     }
 }
